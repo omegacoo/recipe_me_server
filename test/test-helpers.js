@@ -3,7 +3,7 @@ function makeIngredientsArray(){
         {
             id: 1,
             title: 'carrot',
-            category: 'vegetable'
+            category: 'vegetable/legume'
         },
         {
             id: 2,
