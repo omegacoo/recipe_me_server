@@ -1,4 +1,4 @@
-insert into ingredients (title, category) values 
+insert into ingredients (title, category) values
     ('black beans', 'vegetable/legume'),
     ('pinto beans', 'vegetable/legume'),
     ('kidney beans', 'vegetable/legume'),
