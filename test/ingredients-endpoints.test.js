@@ -30,6 +30,13 @@ describe('Ingredients endpoints', () => {
 
         context('Given there are ingredients in the DB', () => {
             const testIngredients = helpers.makeIngredientsArray();
+            testIngredients.sort((a, b) => {
+                let titleA = a.title;
+                let titleB = b.title;
+
+                return(titleA < titleB) ? -1 : (titleA > titleB) ? 1 : 0;
+            });
+
 
             beforeEach('insert ingredients', () => {
                 return db
@@ -37,7 +44,7 @@ describe('Ingredients endpoints', () => {
                     .insert(testIngredients)
             });
 
-            it('responds with 200 and all of the ingredients', () => {
+            it('responds with 200 and all of the ingredients in alphabetical order', () => {
                 return supertest(app)
                     .get('/api/ingredients')
                     .expect(200, testIngredients)

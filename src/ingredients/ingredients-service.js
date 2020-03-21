@@ -3,6 +3,7 @@ const IngredientsService = {
         return knex
             .select('*')
             .from('ingredients')
+            .orderBy('title')
     },
     getById(knex, id){
         return knex
