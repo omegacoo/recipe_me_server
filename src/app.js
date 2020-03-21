@@ -7,6 +7,7 @@ const { NODE_ENV } = require('./config');
 
 const ingredientsRouter = require('./ingredients/ingredients-router');
 const recipesRouter = require('./recipes/recipes-router');
+const authRouter = require('./auth/auth-router');
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.use(cors());
 
 app.use('/api/ingredients', ingredientsRouter);
 app.use('/api/recipes', recipesRouter);
+app.use('/api/auth', authRouter);
 
 app.use(function errorHandler(error, req, res, next){
     let response;

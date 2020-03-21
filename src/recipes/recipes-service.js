@@ -1,5 +1,5 @@
 const RecipesService = {
-    getAllRecipes(knex){
+    getAvailableRecipes(knex){
         return knex
             .select('*')
             .from('recipes')

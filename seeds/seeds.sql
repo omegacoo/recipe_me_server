@@ -3,4 +3,5 @@
 begin;
     \i seeds/ingredients.sql;
     \i seeds/recipes.sql;
+    \i seeds/recipes_ingredients.sql;
 commit;

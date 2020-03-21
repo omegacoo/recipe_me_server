@@ -44,7 +44,35 @@ function makeRecipesArray(){
     ]
 };
 
+function makeUsersArray(){
+    return [
+        {
+            user_name: 'test_one',
+            password: 'test_password',
+            email: 'test_email1'
+        },
+        {
+            user_name: 'test_two',
+            password: 'test_password',
+            email: 'test_email2'
+        },
+        {
+            user_name: 'test_three',
+            password: 'test_password',
+            email: 'test_email3'
+        }
+    ]
+};
+
+function seedUsers(db, users){
+    return db
+        .into('users')
+        .insert(users)
+};
+
 module.exports = {
     makeIngredientsArray,
-    makeRecipesArray
+    makeRecipesArray,
+    makeUsersArray,
+    seedUsers
 };
