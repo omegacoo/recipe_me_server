@@ -3,7 +3,6 @@ const xss = require('xss');
 const IngredientsService = require('./ingredients-service');
 
 const ingredientsRouter = express.Router();
-const bodyParser = express.json();
 
 const serializeIngredient = ingredient => ({
     id: ingredient.id,
