@@ -16,7 +16,10 @@ const morganOption = (NODE_ENV === 'production') ? 'tiny' : 'common';
 
 app.use(morgan(morganOption));
 app.use(helmet());
-app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:3000',
+    credentials: true
+}));
 
 app.use('/api/ingredients', ingredientsRouter);
 app.use('/api/recipes', recipesRouter);
