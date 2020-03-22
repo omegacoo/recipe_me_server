@@ -8,7 +8,7 @@ const { NODE_ENV } = require('./config');
 const ingredientsRouter = require('./ingredients/ingredients-router');
 const recipesRouter = require('./recipes/recipes-router');
 const authRouter = require('./auth/auth-router');
-const user_ingredientsRouter = require('./user_ingredients/user_ingredients-router');
+// const user_ingredientsRouter = require('./user_ingredients/user_ingredients-router');
 
 const app = express();
 

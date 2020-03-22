@@ -55,7 +55,7 @@ describe('Auth endpoints', () => {
                 return supertest(app)
                     .post('/api/auth/login')
                     .send(userInvalidUser)
-                    .expect(400, {error: { message: `Incorrect user_name or password` } })
+                    .expect(401, {error: { message: `Incorrect user_name or password` } })
             });
 
             it(`responds with 400 'invalid user_name or password' when bad password`, () => {
@@ -64,7 +64,7 @@ describe('Auth endpoints', () => {
                 return supertest(app)
                     .post('/api/auth/login')
                     .send(userInvalidPass)
-                    .expect(400, { error: { message: `Incorrect user_name or password` } })
+                    .expect(401, { error: { message: `Incorrect user_name or password` } })
             });
         });
 
