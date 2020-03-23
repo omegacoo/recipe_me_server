@@ -3,7 +3,7 @@ const AuthService = require('./auth-service');
 const jwt = require('jsonwebtoken');
 
 const jwtKey = 'u%3FgDR8&ljLnvYDluy5%T2Yd_##C#';
-const jwtExpirySeconds = 1800;
+const jwtExpirySeconds = 900;
 
 const authRouter = express.Router();
 const jsonParser = express.json();
