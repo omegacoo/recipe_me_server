@@ -17,7 +17,8 @@ const morganOption = (NODE_ENV === 'production') ? 'tiny' : 'common';
 app.use(morgan(morganOption));
 app.use(helmet());
 app.use(cors({
-    origin: ['http://localhost:3000', 'https://recipe-me.now.sh', 'https://pantry-buddy.com']
+    origin: ['http://localhost:3000', 'https://recipe-me.now.sh', 'https://pantry-buddy.com'],
+    credentials: true
 }));
 
 app.use('/api/ingredients', ingredientsRouter);
