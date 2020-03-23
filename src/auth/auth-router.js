@@ -1,9 +1,7 @@
 const express = require('express');
 const AuthService = require('./auth-service');
+const config = require('../config');
 const jwt = require('jsonwebtoken');
-
-const jwtKey = 'u%3FgDR8&ljLnvYDluy5%T2Yd_##C#';
-const jwtExpirySeconds = 900;
 
 const authRouter = express.Router();
 const jsonParser = express.json();
@@ -28,60 +26,26 @@ authRouter
             loginUser.user_name
         )
             .then(dbUser => {
-                if(!dbUser){
-                    return res.status(401).json({
-                        error: {
-                            message: `Incorrect user_name or password`
-                        }
-                    })
-                } else if(dbUser.password !== loginUser.password){
+                if(!dbUser || dbUser.password !== loginUser.password){
                     return res.status(401).json({
                         error: {
                             message: `Incorrect user_name or password`
                         }
                     })
                 };
-                const token = jwt.sign({ user_name }, jwtKey, {
+                console.log('verified!');
+                const user_name = dbUser.user_name;
+
+                const token = jwt.sign({ user_name }, config.JWT_SECRET, {
                     algorithm: 'HS256',
-                    expiresIn: jwtExpirySeconds
+                    expiresIn: config.JWT_EXPIRY_SECONDS
                 });
-                res.cookie('token', token, { maxAge: jwtExpirySeconds * 1000, hostOnly: false });
-                res.end();
+                
+                // const sub = dbUser.user_name;
+                // const payload = { user_id: dbUser.id };
+                res.cookie('token', token, { maxAge: config.JWT_EXPIRY_SECONDS * 1000 }).end();
             })
             .catch(next)
     })
-
-authRouter
-    .post('/refresh', (req, res, next) => {
-        const toke = req.cookies.token;
-
-        if(!token){
-            return res.status(401).end()
-        };
-
-        let payload;
-        try{
-            payload = jwt.verify(token, jwtKey);
-        } catch(e){
-            if(e instanceof jwt.JsonWebTokenError){
-                return res.status(401).end()
-            };
-            return res.status(400).end()
-        };
-        const nowUnixSeconds = Math.round(Number(new Date()) / 1000);
-
-        if(payload.exp - nowUnixSeconds > 30){
-            return res.status(400).end()
-        };
-
-        const newToken = jwt.sign({ username: payload.username }, jwtKey, {
-            algorithm: 'HS256',
-            expiresIn: jwtExpirySeconds
-        });
-
-        res.cookie('token', newToken, { maxAge: jwtExpirySeconds * 1000, hostOnly: false });
-        res.end();
-    })
-
 
 module.exports = authRouter;
