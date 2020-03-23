@@ -45,7 +45,7 @@ authRouter
                     algorithm: 'HS256',
                     expiresIn: jwtExpirySeconds
                 });
-                res.cookie('token', token, { maxAge: jwtExpirySeconds * 1000 });
+                res.cookie('token', token, { maxAge: jwtExpirySeconds * 1000, hostOnly: false });
                 res.end();
             })
             .catch(next)
@@ -79,7 +79,7 @@ authRouter
             expiresIn: jwtExpirySeconds
         });
 
-        res.cookie('token', newToken, { maxAge: jwtExpirySeconds * 1000 });
+        res.cookie('token', newToken, { maxAge: jwtExpirySeconds * 1000, hostOnly: false });
         res.end();
     })
 
