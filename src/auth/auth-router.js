@@ -3,7 +3,7 @@ const AuthService = require('./auth-service');
 const jwt = require('jsonwebtoken');
 
 const jwtKey = 'u%3FgDR8&ljLnvYDluy5%T2Yd_##C#';
-const jwtExpirySeconds = 300;
+const jwtExpirySeconds = 1800;
 
 const authRouter = express.Router();
 const jsonParser = express.json();
@@ -50,5 +50,38 @@ authRouter
             })
             .catch(next)
     })
+
+authRouter
+    .post('/refresh', (req, res, next) => {
+        const toke = req.cookies.token;
+
+        if(!token){
+            return res.status(401).end()
+        };
+
+        let payload;
+        try{
+            payload = jwt.verify(token, jwtKey);
+        } catch(e){
+            if(e instanceof jwt.JsonWebTokenError){
+                return res.status(401).end()
+            };
+            return res.status(400).end()
+        };
+        const nowUnixSeconds = Math.round(Number(new Date()) / 1000);
+
+        if(payload.exp - nowUnixSeconds > 30){
+            return res.status(400).end()
+        };
+
+        const newToken = jwt.sign({ username: payload.username }, jwtKey, {
+            algorithm: 'HS256',
+            expiresIn: jwtExpirySeconds
+        });
+
+        res.cookie('token', newToken, { maxAge: jwtExpirySeconds * 1000 });
+        res.end();
+    })
+
 
 module.exports = authRouter;
