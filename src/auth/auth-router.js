@@ -41,9 +41,7 @@ authRouter
                     expiresIn: config.JWT_EXPIRY_SECONDS
                 });
                 
-                // const sub = dbUser.user_name;
-                // const payload = { user_id: dbUser.id };
-                res.cookie('token', token, { maxAge: config.JWT_EXPIRY_SECONDS * 1000, httpOnly: false }).end();
+                res.cookie('token', token, { maxAge: config.JWT_EXPIRY_SECONDS * 1000 }).end();
             })
             .catch(next)
     })
