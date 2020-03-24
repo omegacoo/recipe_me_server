@@ -40,7 +40,7 @@ authRouter
                     expiresIn: config.JWT_EXPIRY_SECONDS
                 });
                 
-                res.set('myCookie', token);
+                res.set('mycookie', token);
                 res.send();
 
                 // res.cookie('token', token, { maxAge: config.JWT_EXPIRY_SECONDS * 1000 }).end();
