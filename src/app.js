@@ -4,7 +4,6 @@ const morgan = require('morgan');
 const cors = require('cors');
 const helmet = require('helmet');
 const { NODE_ENV } = require('./config'); 
-const cookieParser = require('cookie-parser');
 
 const ingredientsRouter = require('./ingredients/ingredients-router');
 const recipesRouter = require('./recipes/recipes-router');
@@ -15,19 +14,12 @@ const app = express();
 
 const morganOption = (NODE_ENV === 'production') ? 'tiny' : 'common';
 
-const whitelist = ['http://localhost:3000', 'https://pantry-buddy.com'];
 const corsOptions = {
-    origin: function(origin, callback){
-        if(whitelist.indexOf(origin) !== -1 || !origin){
-            callback(null, true);
-        } else {
-            callback(new Error('Not allowed by CORS'))
-        }
-    },
-    credentials: true
+    origin: ['http://localhost:3000', 'https://pantry-buddy.com'],
+    credentials: true,
+    allowedHeaders: ['Cookie', 'Set-Cookie']
 };
 
-app.use(cookieParser());
 app.use(morgan(morganOption));
 app.use(helmet());
 app.use(cors(corsOptions));
