@@ -17,7 +17,7 @@ const morganOption = (NODE_ENV === 'production') ? 'tiny' : 'common';
 const corsOptions = {
     origin: ['http://localhost:3000', 'https://pantry-buddy.com'],
     credentials: true,
-    allowedHeaders: ['Cookie', 'Set-Cookie']
+    allowedHeaders: ['Cookie', 'Set-Cookie', 'Content-Type']
 };
 
 app.use(morgan(morganOption));
