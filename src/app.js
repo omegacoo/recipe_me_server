@@ -30,7 +30,7 @@ const corsOptions = {
 app.use(cookieParser());
 app.use(morgan(morganOption));
 app.use(helmet());
-app.use(cors(corsOptions));
+app.use(cors());
 
 app.use('/api/ingredients', ingredientsRouter);
 app.use('/api/recipes', recipesRouter);
