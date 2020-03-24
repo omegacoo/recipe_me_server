@@ -17,7 +17,7 @@ const serializeRecipe = recipe => ({
 recipesRouter
     .route('/')
     .get((req, res, next) => {        
-        const token = req.headers.cookies;       
+        const token = req.get('cookies');       
 
         if(!token){
             return res.status(401).end()
