@@ -33,7 +33,6 @@ authRouter
                         }
                     })
                 };
-                console.log('verified!');
                 const user_name = dbUser.user_name;
 
                 const token = jwt.sign({ user_name }, config.JWT_SECRET, {

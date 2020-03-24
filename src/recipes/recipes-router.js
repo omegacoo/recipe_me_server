@@ -1,6 +1,8 @@
 const express = require('express');
 const xss = require('xss');
 const RecipesService = require('./recipes-service');
+const config = require('../config');
+const jwt = require('jsonwebtoken');
 
 const recipesRouter = express.Router();
 
@@ -14,7 +16,23 @@ const serializeRecipe = recipe => ({
 
 recipesRouter
     .route('/')
-    .get((req, res, next) => {
+    .get((req, res, next) => {        
+        const token = req.headers.cookies;       
+
+        if(!token){
+            return res.status(401).end()
+        };
+
+        let payload;
+        try{
+            payload = jwt.verify(token, config.JWT_SECRET);
+        } catch(e) {
+            if(e instanceof jwt.JsonWebTokenError){
+                return res.status(401).end()
+            };
+            return res.status(400).end()
+        }
+        
         RecipesService.getAllRecipes(
             req.app.get('db')
         )

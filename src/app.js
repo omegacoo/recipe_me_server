@@ -4,6 +4,7 @@ const morgan = require('morgan');
 const cors = require('cors');
 const helmet = require('helmet');
 const { NODE_ENV } = require('./config'); 
+const cookieParser = require('cookie-parser');
 
 const ingredientsRouter = require('./ingredients/ingredients-router');
 const recipesRouter = require('./recipes/recipes-router');
@@ -14,10 +15,11 @@ const app = express();
 
 const morganOption = (NODE_ENV === 'production') ? 'tiny' : 'common';
 
+app.use(cookieParser());
 app.use(morgan(morganOption));
 app.use(helmet());
 app.use(cors({
-    origin: ['http://localhost:3000', 'https://pantry-buddy.com', /\.pantry-buddy\.com$/],
+    origin: ['http://localhost:3000', 'https://pantry-buddy.com'],
     credentials: true
 }));
 
