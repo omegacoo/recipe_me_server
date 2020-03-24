@@ -15,13 +15,22 @@ const app = express();
 
 const morganOption = (NODE_ENV === 'production') ? 'tiny' : 'common';
 
+const whitelist = ['http://localhost:3000', 'https://pantry-buddy.com'];
+const corsOptions = {
+    origin: function(origin, callback){
+        if(whitelist.indexOf(origin) !== -1 || !origin){
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'))
+        }
+    },
+    credentials: true
+};
+
 app.use(cookieParser());
 app.use(morgan(morganOption));
 app.use(helmet());
-app.use(cors({
-    origin: ['http://localhost:3000', 'https://pantry-buddy.com'],
-    credentials: true
-}));
+app.use(cors(corsOptions));
 
 app.use('/api/ingredients', ingredientsRouter);
 app.use('/api/recipes', recipesRouter);
