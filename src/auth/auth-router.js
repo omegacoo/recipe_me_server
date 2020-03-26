@@ -41,9 +41,8 @@ authRouter
                 });
                 
                 res.set('X-token', token);
+                res.set('user_id', dbUser.id);
                 res.send();
-
-                // res.cookie('token', token, { maxAge: config.JWT_EXPIRY_SECONDS * 1000 }).end();
             })
             .catch(next)
     })

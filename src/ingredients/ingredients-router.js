@@ -4,8 +4,6 @@ const IngredientsService = require('./ingredients-service');
 
 const ingredientsRouter = express.Router();
 
-const jwtKey = 'u%3FgDR8&ljLnvYDluy5%T2Yd_##C#';
-
 const serializeIngredient = ingredient => ({
     id: ingredient.id,
     title: xss(ingredient.title),
