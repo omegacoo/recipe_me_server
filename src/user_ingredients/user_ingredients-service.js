@@ -7,6 +7,12 @@ const User_IngredientService = {
     putNewUserIngredients(knex, newUserIngredients){  
         return knex('user_ingredients')
             .insert(newUserIngredients)
+    },
+    getUserIngredients(knex, id){
+        return knex
+            .select('*')
+            .from('user_ingredients')
+            .where('user_id', id)
     }
 };
 
