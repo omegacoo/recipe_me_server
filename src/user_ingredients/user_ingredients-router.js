@@ -1,5 +1,4 @@
 const express = require('express');
-const path = require('path');
 const User_IngredientService = require('./user_ingredients-service');
 const jwt = require('jsonwebtoken');
 const config = require('../config');
@@ -10,7 +9,7 @@ const bodyParser = express.json();
 user_ingredientsRouter
     .route('/')
     .get((req, res, next) => {
-        const token = req.get('cookies');
+        const token = req.get('cookies');        
 
         if(!token){
             return res.status(401).end()
@@ -59,9 +58,7 @@ user_ingredientsRouter
             userId
         )
             .then(() => {
-                res
-                    .status(201)
-                    .end()
+                res.end()
             })
             .catch(next)
 
