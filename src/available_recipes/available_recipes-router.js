@@ -9,7 +9,8 @@ const parser = express.json();
 available_recipesRouter
     .route('/')
     .get(parser, (req, res, next) => {        
-        const token = req.get('cookies');        
+        const token = req.get('cookies');  
+        const user_id = parseInt(req.headers.user_id);    
 
         if(!token){
             return res.status(401).end()
@@ -25,12 +26,13 @@ available_recipesRouter
             return res.status(400).end()
         };
 
+        let ingredientsNeeded = [];
         let possibleRecipes = [];
-        let allIngredientsForEachFoundRecipe = [];
+        let recipeList = [];
 
         Available_RecipesService.getRecipesUserHasIngredientsFor(
             req.app.get('db'),
-            parseInt(req.headers.user_id)
+            user_id
         )
             .then(rawRecipes => {
                 let duplicateChecker = [];
@@ -47,9 +49,47 @@ available_recipesRouter
                     possibleRecipes
                 )
                     .then(response => {
-                        // response.map(r => allIngredientsForEachFoundRecipe.push(r));
-                        console.log(response);
-                        res.send(response)
+                        ingredientsNeeded = [...response];
+                    })
+                    .then(() => {
+                        Available_RecipesService.getUserIngredients(
+                            req.app.get('db'),
+                            user_id
+                        )
+                            .then(userIngredients => {
+                                ingredientsNeeded.map(iN => {
+                                    if(!userIngredients.find(uI => uI.ingredient_id === iN.ingredient_id)){
+                                        ingredientsNeeded = ingredientsNeeded.filter(i => i.recipe_id !== iN.recipe_id);
+                                    };
+                                });
+                                ingredientsNeeded.map( i => {
+                                    if(!recipeList.find(element => element.recipe_id == i.recipe_id)){
+                                        recipeList.push(i.recipe_id);
+                                    };
+                                });
+                                let a = [];
+                                recipeList.map(i => {
+                                    if(!a.includes(i)){
+                                        a.push(i)
+                                    };
+                                });
+
+                                recipeList = [...a];
+                            })
+                            .then(() => {
+                                Available_RecipesService.getSpecificRecipes(
+                                    req.app.get('db'),
+                                    recipeList
+                                )
+                                    .then(response => {
+                                        response.map(r => {
+                                            let recipeIngredients = ingredientsNeeded.filter(i => i.recipe_id === r.id);
+                                            r.ingredients = recipeIngredients.map(i => i);
+                                        });
+                                        
+                                        res.json(response);
+                                    })
+                            })
                     })
             })
             .catch(next)
