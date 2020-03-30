@@ -10,6 +10,7 @@ const recipesRouter = require('./recipes/recipes-router');
 const authRouter = require('./auth/auth-router');
 const user_ingredientsRouter = require('./user_ingredients/user_ingredients-router');
 const available_recipesRouter = require('./available_recipes/available_recipes-router');
+const registerRouter = require('./register/register-router');
 
 const app = express();
 
@@ -29,6 +30,7 @@ app.use('/api/recipes', recipesRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/user_ingredients', user_ingredientsRouter);
 app.use('/api/available_recipes', available_recipesRouter);
+app.use('/api/register', registerRouter);
 
 app.use(function errorHandler(error, req, res, next){
     let response;

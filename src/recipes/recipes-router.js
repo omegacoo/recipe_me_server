@@ -1,7 +1,6 @@
 const express = require('express');
 const xss = require('xss');
 const RecipesService = require('./recipes-service');
-const config = require('../config');
 const jwt = require('jsonwebtoken');
 
 const recipesRouter = express.Router();
@@ -25,7 +24,7 @@ recipesRouter
 
         let payload;
         try{
-            payload = jwt.verify(token, config.JWT_SECRET);
+            payload = jwt.verify(token, process.env.JWT_SECRET);
         } catch(e) {
             if(e instanceof jwt.JsonWebTokenError){
                 return res.status(401).end()

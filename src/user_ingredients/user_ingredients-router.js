@@ -1,7 +1,6 @@
 const express = require('express');
 const User_IngredientService = require('./user_ingredients-service');
 const jwt = require('jsonwebtoken');
-const config = require('../config');
 
 const user_ingredientsRouter = express.Router();
 const bodyParser = express.json();
@@ -17,7 +16,7 @@ user_ingredientsRouter
 
         let payload;
         try {
-            payload = jwt.verify(token, config.JWT_SECRET);
+            payload = jwt.verify(token, process.env.JWT_SECRET);
         } catch(e) {
             if(e instanceof jwt.JsonWebTokenError){
                 return res.status(401).end()
@@ -45,7 +44,7 @@ user_ingredientsRouter
 
         let payload;
         try {
-            payload = jwt.verify(token, config.JWT_SECRET);
+            payload = jwt.verify(token, process.env.JWT_SECRET);
         } catch(e) {
             if(e instanceof jwt.JsonWebTokenError){
                 return res.status(401).end()

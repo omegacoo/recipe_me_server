@@ -2,6 +2,7 @@ const express = require('express');
 const AuthService = require('./auth-service');
 const config = require('../config');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
 
 const authRouter = express.Router();
 const jsonParser = express.json();
@@ -26,7 +27,7 @@ authRouter
             loginUser.user_name
         )
             .then(dbUser => {
-                if(!dbUser || dbUser.password !== loginUser.password){
+                if(!dbUser || !bcrypt.compareSync(loginUser.password, dbUser.password)){
                     return res.status(401).json({
                         error: {
                             message: `Incorrect user_name or password`
@@ -35,7 +36,7 @@ authRouter
                 };
                 const user_name = dbUser.user_name;
 
-                const token = jwt.sign({ user_name }, config.JWT_SECRET, {
+                const token = jwt.sign({ user_name }, process.env.JWT_SECRET, {
                     algorithm: 'HS256',
                     expiresIn: config.JWT_EXPIRY_SECONDS
                 });
