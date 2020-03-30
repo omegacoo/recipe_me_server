@@ -1,5 +1,6 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
+const config = require('../config');
 
 const RegisterService = require('./register-service');
 
@@ -10,8 +11,9 @@ registerRouter
     .route('/')
     .post(bodyParser, (req, res, next) => {
         let { user_name, password, email } = req.body;
-        password = bcrypt.hashSync(password, process.env.BCRYPT_SALT);
+        password = bcrypt.hashSync(password, config.BCRYPT_VERSION);
         const newUser = { user_name, password, email };
+        
 
         RegisterService.checkIfUserNameOrEmailUsedAlready(
             req.app.get('db'),
