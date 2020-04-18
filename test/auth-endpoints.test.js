@@ -1,6 +1,7 @@
 const knex = require('knex');
 const app = require('../src/app');
 const helpers = require('./test-helpers');
+const jwt = require('jsonwebtoken');
 
 describe('Auth endpoints', () => {
     let db;
@@ -69,10 +70,16 @@ describe('Auth endpoints', () => {
         });
 
         it(`responds with 200 when good user_name and password`, () => {
+            const loginAttemptBody = {
+                user_name: testUser.user_name,
+                password: jwt.sign(testUser.password, process.env.JWT_SECRET, {
+                    algorithm: 'HS256'
+                })
+            };
 
             return supertest(app)
                 .post('/api/auth/login')
-                .send(testUser)
+                .send(loginAttemptBody)
                 .expect(200)
         });
     });

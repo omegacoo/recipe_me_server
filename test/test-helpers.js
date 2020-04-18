@@ -50,16 +50,6 @@ function makeUsersArray(){
             user_name: 'test_one',
             password: 'test_password',
             email: 'test_email1'
-        },
-        {
-            user_name: 'test_two',
-            password: 'test_password',
-            email: 'test_email2'
-        },
-        {
-            user_name: 'test_three',
-            password: 'test_password',
-            email: 'test_email3'
         }
     ]
 };

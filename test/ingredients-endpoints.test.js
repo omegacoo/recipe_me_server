@@ -51,35 +51,4 @@ describe('Ingredients endpoints', () => {
             });
         });
     });
-
-    describe('GET /api/ingredients/:ingredient_id', () => {
-        context('Given no ingredients', () => {
-            it('responds with 404', () => {
-                const ingredient_id = 1234;
-
-                return supertest(app)
-                    .get(`/api/ingredients/${ingredient_id}`)
-                    .expect(404, { error: { message: `Ingredient doesn't exist` } })
-            });
-        }); 
-
-        context('Given there are ingredients in the DB', () => {
-            const testIngredients = helpers.makeIngredientsArray();
-            
-            beforeEach('insert ingredients', () => {
-                return db
-                    .into('ingredients')
-                    .insert(testIngredients)
-            });
-
-            it('responds with 200 and the ingredient', () => {
-                const ingredient_id = 2;
-                const expectedIngredient = testIngredients[ingredient_id - 1];
-
-                return supertest(app)
-                    .get(`/api/ingredients/${ingredient_id}`)
-                    .expect(200, expectedIngredient)
-            });
-        });
-    });
 });
