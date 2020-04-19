@@ -54,6 +54,19 @@ function makeUsersArray(){
     ]
 };
 
+function makeUserIngredientsArray(){
+    return [
+        {
+            ingredient_id: 1,
+            user_id: 1
+        },
+        {
+            ingredient_id: 2,
+            user_id: 2
+        }
+    ]
+};
+
 function seedUsers(db, users){
     return db
         .into('users')
@@ -64,5 +77,6 @@ module.exports = {
     makeIngredientsArray,
     makeRecipesArray,
     makeUsersArray,
-    seedUsers
+    seedUsers,
+    makeUserIngredientsArray
 };

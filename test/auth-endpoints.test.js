@@ -76,6 +76,15 @@ describe('Auth endpoints', () => {
                     .send(userInvalidPass)
                     .expect(401, { error: { message: `Incorrect user_name or password` } })
             });
+
+            it(`responds with 400 'invalid user_name or password' when both fields are wrong`, () => {
+                const userInvalidFields = { user_name: 'user_not', password: 'wrong' };
+
+                return supertest(app)
+                    .post('/api/auth/login')
+                    .send(userInvalidFields)
+                    .expect(401, { error: { message: `Incorrect user_name or password` } })
+            });
         });
 
         it(`responds with 200 when good user_name and password`, () => {

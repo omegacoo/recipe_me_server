@@ -2,7 +2,7 @@ const knex = require('knex');
 const app = require('../src/app');
 const helpers = require('./test-helpers');
 
-describe('User_ingredients endpoints', () => {
+describe('Available recipes endpoints', () => {
     let db;
 
     before('make knex instance', () => {
@@ -19,7 +19,7 @@ describe('User_ingredients endpoints', () => {
 
     afterEach('cleanup', () => db.raw('TRUNCATE user_ingredients RESTART IDENTITY CASCADE'));
 
-    describe('POST /api/user_ingredients', () => {
+    describe('GET /api/available_recipes', () => {
         context('Given the user is not authorized', () => {
             it('responds with 401', () => {
                 return supertest(app)
