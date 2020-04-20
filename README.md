@@ -1,18 +1,35 @@
-# Recipe Me Server
+# Pantry Buddy Server
 
-## Setting up
+> The server side for the Pantry Buddy App
 
-- Install dependencies: `npm install`
-- Create development and test databases: `createdb recipe_me`, `createdb recipe_me_test`
-- Create database user: `createuser recipe_me`
-- Grant privileges to new user in `psql`:
-    - `GRANT ALL PRIVILEGES ON DATABASE recipe_me TO recipe_me`
-    - `GRANT ALL PRIVILIGES ON DATABASE recipe_me_test TO recipe_me`
-- Replace values in `.env` with your custom values.
-- Bootstrap development database: `npm run migrate`
-- Bootstrap test database: `npm run migrate:test`
+## Build Status:
 
-## Scripts
+![Build Status](https://travis-ci.org/thinkful-c11/book-thing.io.svg?branch=master)
 
-- Start application for development: `npm run dev`
-- Run tests: `npm t`
+## Built with:
+
+* JS
+* Node
+* BCrypt
+* Express
+* JWT
+* Knex
+* PostgreSQL
+* Chai
+* Mocha
+* Supertest
+
+## Features:
+
+* Registration
+* Login
+* Grabs all ingredients from DataBase
+* Stores user's ingredients in DataBase
+* Pulls user's ingredients from DataBase
+* Compares user's ingredients to recipes in DataBase and returns recipes the user can make with those ingredients
+* Encrypts passwords
+* Provides session token
+
+## Author:
+
+* **Ben Sumser**
