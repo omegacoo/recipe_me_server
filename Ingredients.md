@@ -12,7 +12,7 @@
 
 * **Success Response**
 
-    * **Code:** 200
+    * **Code:** 200 <br />
       **Content:** List of available ingredients
 
 * **Sample Call**
