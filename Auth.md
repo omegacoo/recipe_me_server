@@ -14,7 +14,7 @@
 
     **Required:**
 
-    `user_name:[string]`
+    `user_name:[string]` <br />
     `password:[string]`
 
 * **Success Response**

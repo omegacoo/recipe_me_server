@@ -14,8 +14,8 @@
 
     **Required:**
 
-    `user_name=[string]`
-    `password=[string]`
+    `user_name=[string]` <br />
+    `password=[string]` <br />
     `email=[string]`
 
 * **Success Response**
