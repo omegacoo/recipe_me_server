@@ -26,7 +26,6 @@ registerRouter
                             message: `Username or email is already in use`
                         }
                     });
-                    console.log('here');
                     return
                 };
                 RegisterService.registerNewUser(
