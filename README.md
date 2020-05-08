@@ -21,11 +21,11 @@
 
 ## Features:
 
-* ![Registration](Register.md)
-* ![Login](Auth.md)
-* ![Grabs all ingredients from DataBase](Ingredients.md)
-* ![Stores user's ingredients in DataBase](UserIngredients.md)
-* ![Pulls user's ingredients from DataBase](UserIngredients.md)
+* [Registration](Register.md)
+* [Login](Auth.md)
+* [Grabs all ingredients from DataBase](Ingredients.md)
+* [Stores user's ingredients in DataBase](UserIngredients.md)
+* [Pulls user's ingredients from DataBase](UserIngredients.md)
 * Compares user's ingredients to recipes in DataBase and returns recipes the user can make with those ingredients
 * Encrypts passwords
 * Provides session token
