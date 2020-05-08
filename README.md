@@ -30,6 +30,9 @@
 * Encrypts passwords
 * Provides session token
 
-## Author:
+## Frontend:
 
+- [Repo](https://github.com/omegacoo/Recipe_me)
+
+## Author:
 * **Ben Sumser**
